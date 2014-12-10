@@ -39,6 +39,7 @@
     self.menuMonthTextFont = [UIFont systemFontOfSize:17.];
     self.weekDayTextFont = [UIFont systemFontOfSize:11];
     self.dayTextFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+    self.dayDateFormat = @"dd";
     
     self.menuMonthTextColor = [UIColor blackColor];
     self.weekDayTextColor = [UIColor colorWithRed:152./256. green:147./256. blue:157./256. alpha:1.];
