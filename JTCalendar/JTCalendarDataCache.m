@@ -11,6 +11,7 @@
 
 @interface JTCalendarDataCache(){
     NSMutableDictionary *events;
+    NSMutableDictionary *auxEvents;
     NSDateFormatter *dateFormatter;
 };
 
@@ -59,6 +60,30 @@
     }
     
     return haveEvent;
+}
+
+- (BOOL)haveAuxEvent:(NSDate *)date
+{
+    if(!self.calendarManager.dataSource){
+        return NO;
+    }
+    
+    if(!self.calendarManager.calendarAppearance.useCacheSystem){
+        return [self.calendarManager.dataSource calendarHaveAuxEvent:self.calendarManager date:date];
+    }
+    
+    BOOL haveAuxEvent;
+    NSString *key = [dateFormatter stringFromDate:date];
+    
+    if(auxEvents[key] != nil){
+        haveAuxEvent = [auxEvents[key] boolValue];
+    }
+    else{
+        haveAuxEvent = [self.calendarManager.dataSource calendarHaveAuxEvent:self.calendarManager date:date];
+        auxEvents[key] = [NSNumber numberWithBool:haveAuxEvent];
+    }
+    
+    return haveAuxEvent;
 }
 
 @end
