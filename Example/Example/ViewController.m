@@ -24,6 +24,8 @@
     // All modifications on calendarAppearance have to be done before setMenuMonthsView and setContentView
     // Or you will have to call reloadAppearance
     {
+        self.calendar.calendarAppearance.dayTopImageViewSize = CGSizeMake(10, 10);
+        self.calendar.calendarAppearance.dayTopImage = [self imageWithColor:[UIColor greenColor]];
         self.calendar.calendarAppearance.dayDateFormat = @"d";
         self.calendar.calendarAppearance.dayLineInsteadOfDot = YES;
         self.calendar.calendarAppearance.dayDotColor = [UIColor redColor];
@@ -88,6 +90,17 @@
 #pragma mark - JTCalendarDataSource
 
 - (BOOL)calendarHaveEvent:(JTCalendar *)calendar date:(NSDate *)date
+{
+    NSString *key = [[self dateFormatter] stringFromDate:date];
+    
+    if(eventsByDate[key] && [eventsByDate[key] count] > 0){
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)calendarHaveAuxEvent:(JTCalendar *)calendar date:(NSDate *)date
 {
     NSString *key = [[self dateFormatter] stringFromDate:date];
     
@@ -175,6 +188,21 @@
              
         [eventsByDate[key] addObject:randomDate];
     }
+}
+
+- (UIImage *)imageWithColor:(UIColor *)color
+{
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 @end

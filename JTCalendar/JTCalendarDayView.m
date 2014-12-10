@@ -15,6 +15,7 @@
     UILabel *textLabel;
     JTCircleView *dotView;
     UIView *lineView;
+    UIImageView *topImageView;
     
     BOOL isSelected;
     
@@ -89,6 +90,12 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     }
     
     {
+        topImageView = [[UIImageView alloc] init];
+        [self addSubview:topImageView];
+        topImageView.hidden = YES;
+    }
+    
+    {
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTouch)];
 
         self.userInteractionEnabled = YES;
@@ -119,6 +126,8 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     
     sizeCircle = sizeCircle * self.calendarManager.calendarAppearance.dayCircleRatio;
     sizeDot = sizeDot * self.calendarManager.calendarAppearance.dayDotRatio;
+    CGSize sizeImageView = self.calendarManager.calendarAppearance.dayTopImageViewSize;
+    UIImage *topImage = self.calendarManager.calendarAppearance.dayTopImage;
     
     sizeCircle = roundf(sizeCircle);
     sizeDot = roundf(sizeDot);
@@ -133,6 +142,10 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     
     lineView.frame = CGRectMake(0, 0, self.frame.size.width / 2., sizeDot);
     lineView.center = CGPointMake(self.frame.size.width / 2., self.frame.size.height - lineView.frame.size.height);
+    
+    topImageView.frame = CGRectMake(0, 0, sizeImageView.width, sizeImageView.height);
+    topImageView.center = CGPointMake(self.frame.size.width / 2., 5);
+    topImageView.image = topImage;
 }
 
 - (void)setDate:(NSDate *)date
@@ -275,6 +288,7 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     BOOL line = self.calendarManager.calendarAppearance.dayLineInsteadOfDot;
     dotView.hidden = (![self.calendarManager.dataCache haveEvent:self.date] || line);
     lineView.hidden = (![self.calendarManager.dataCache haveEvent:self.date] || !line);
+    topImageView.hidden = ![self.calendarManager.dataCache haveAuxEvent:self.date];
 
     BOOL selected = [self isSameDate:[self.calendarManager currentDateSelected]];
     [self setSelected:selected animated:NO];
