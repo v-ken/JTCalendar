@@ -131,7 +131,7 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     if(!dateFormatter){
         dateFormatter = [NSDateFormatter new];
         dateFormatter.timeZone = self.calendarManager.calendarAppearance.calendar.timeZone;
-        [dateFormatter setDateFormat:self.calendarManager.calendarAppearance.dayFormat];
+        [dateFormatter setDateFormat:self.calendarManager.calendarAppearance.dayDateFormat];
     }
     
     self->_date = date;
