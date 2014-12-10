@@ -25,6 +25,11 @@
     // Or you will have to call reloadAppearance
     {
         self.calendar.calendarAppearance.dayDateFormat = @"d";
+        self.calendar.calendarAppearance.dayLineInsteadOfDot = YES;
+        self.calendar.calendarAppearance.dayDotColor = [UIColor redColor];
+        self.calendar.calendarAppearance.dayDotColorOtherMonth = [UIColor redColor];
+        self.calendar.calendarAppearance.dayDotColorSelected = [UIColor clearColor];
+        self.calendar.calendarAppearance.dayDotColorToday = [UIColor clearColor];
         self.calendar.calendarAppearance.calendar.firstWeekday = 2; // Sunday == 1, Saturday == 7
         self.calendar.calendarAppearance.dayCircleRatio = 9. / 10.;
         self.calendar.calendarAppearance.ratioContentMenu = 2.;

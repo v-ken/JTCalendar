@@ -13,6 +13,7 @@
     JTCircleView *circleView;
     UILabel *textLabel;
     JTCircleView *dotView;
+    UIView *lineView;
     
     BOOL isSelected;
     
@@ -76,6 +77,12 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     }
     
     {
+        lineView = [[UIView alloc] init];
+        [self addSubview:lineView];
+        lineView.hidden = YES;
+    }
+    
+    {
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTouch)];
 
         self.userInteractionEnabled = YES;
@@ -115,6 +122,9 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
     dotView.frame = CGRectMake(0, 0, sizeDot, sizeDot);
     dotView.center = CGPointMake(self.frame.size.width / 2., (self.frame.size.height / 2.) + sizeDot * 2.5);
     dotView.layer.cornerRadius = sizeDot / 2.;
+    
+    lineView.frame = CGRectMake(0, 0, self.frame.size.width / 2., sizeDot);
+    lineView.center = CGPointMake(self.frame.size.width / 2., self.frame.size.height - lineView.frame.size.height);
 }
 
 - (void)setDate:(NSDate *)date
@@ -226,6 +236,8 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
         opacity = 0.;
     }
     
+    lineView.backgroundColor = dotView.color;
+    
     if(animated){
         [UIView animateWithDuration:.3 animations:^{
             circleView.layer.opacity = opacity;
@@ -246,8 +258,10 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
 
 - (void)reloadData
 {
-    dotView.hidden = ![self.calendarManager.dataCache haveEvent:self.date];
-    
+    BOOL line = self.calendarManager.calendarAppearance.dayLineInsteadOfDot;
+    dotView.hidden = (![self.calendarManager.dataCache haveEvent:self.date] || line);
+    lineView.hidden = (![self.calendarManager.dataCache haveEvent:self.date] || !line);
+
     BOOL selected = [self isSameDate:[self.calendarManager currentDateSelected]];
     [self setSelected:selected animated:NO];
 }
