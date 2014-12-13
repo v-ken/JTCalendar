@@ -73,6 +73,8 @@
     self.dayTextColorTodayOtherMonth = self.dayTextColorToday;
     self.dayDotColorTodayOtherMonth = self.dayDotColorToday;
     
+    self.dayTextColorTodaySelected = self.dayTextColorToday;
+    
     self.dayTopImageViewSize = CGSizeMake(8, 8);
     
     self.monthBlock = ^NSString *(NSDate *date, JTCalendar *jt_calendar){

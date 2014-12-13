@@ -235,6 +235,11 @@ static NSString *const kJTCalendarDaySelected = @"kJTCalendarDaySelected";
             dotView.color = [self.calendarManager.calendarAppearance dayDotColorSelectedOtherMonth];
         }
         
+        if ([self isToday])
+        {
+            textLabel.textColor = [self.calendarManager.calendarAppearance dayTextColorTodaySelected];
+        }
+        
         circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
         tr = CGAffineTransformIdentity;
     }

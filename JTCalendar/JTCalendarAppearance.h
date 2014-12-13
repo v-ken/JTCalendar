@@ -209,6 +209,10 @@ typedef NSString *(^JTCalendarMonthBlock)(NSDate *date, JTCalendar *jt_calendar)
 @property (assign, nonatomic) CGFloat dayDotRatio;
 
 @property (copy, nonatomic) NSString *dayDateFormat; // E.g. @"dd"
+@property (nonatomic) BOOL dayLineInsteadOfDot;
+@property (nonatomic) CGSize dayTopImageViewSize;
+@property (strong, nonatomic) UIImage *dayTopImage;
+@property (strong, nonatomic) UIColor *dayTextColorTodaySelected;
 
 /**
  *	The default value of this property is a @c Gregorian calendar.
