@@ -26,6 +26,7 @@
     {
         self.calendar.calendarAppearance.dayTopImageViewSize = CGSizeMake(10, 10);
         self.calendar.calendarAppearance.dayTopImage = [self imageWithColor:[UIColor greenColor]];
+        self.calendar.calendarAppearance.dayTextColorTodaySelected = [UIColor greenColor];
         self.calendar.calendarAppearance.dayDateFormat = @"d";
         self.calendar.calendarAppearance.dayLineInsteadOfDot = YES;
         self.calendar.calendarAppearance.dayDotColor = [UIColor redColor];
